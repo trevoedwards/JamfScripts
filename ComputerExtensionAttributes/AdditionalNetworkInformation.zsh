@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-# Jamf does not show all interfaces connected to a device. This will give your IP & MAC of all connected NICs
+# Jamf does not show all interfaces connected to a device. This will give you the IP & MAC of all connected NICs
 
 data=$(/usr/libexec/PlistBuddy -x -c "Print :0:_items" /dev/stdin <<< $(system_profiler -xml SPNetworkDataType))
 
