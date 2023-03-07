@@ -7,18 +7,17 @@
 #  ___) | || (_| | | | | (_| | (_| | | | (_| | |/ /  __/
 # |____/ \__\__,_|_| |_|\__,_|\__,_|_|  \__,_|_/___\___| 
 #
-#                                    
-#         		Name: Standardize for macOS    
-#      			Author: Trevor Edwards        
-#               Last modified: 3-3-2023                      
-#           
-#
+
+# Name: Standardize for macOS    
+# Author: Trevor Edwards        
+# Last modified: 3-3-2023                      
+          
+
 # THE LAST PORTION OF THIS SCRIPT IS DEPENDANT ON DOCKUTIL BEING INSTALLED
 # GET IT HERE: https://github.com/kcrawford/dockutil/releases
-#
+
 # Quick script to standardize some user settings of macOS for a corporate environment.
 # Feel free to modify as necessary.
-#
 
 sleep 5
 
