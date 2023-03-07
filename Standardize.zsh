@@ -19,7 +19,7 @@
 # Quick script to standardize some user settings of macOS for a corporate environment.
 # Feel free to modify as necessary.
 
-sleep 5
+sleep 2
 
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
