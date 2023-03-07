@@ -16,7 +16,7 @@
 # THE LAST PORTION OF THIS SCRIPT IS DEPENDANT ON DOCKUTIL BEING INSTALLED
 # GET IT HERE: https://github.com/kcrawford/dockutil/releases
 #
-# The purpose of this script is to standardize some user settings of macOS for a corporate environment.
+# Quick script to standardize some user settings of macOS for a corporate environment.
 # Feel free to modify as necessary.
 #
 
