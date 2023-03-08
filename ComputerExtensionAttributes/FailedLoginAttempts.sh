@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Extension Attribute to determine the number of failed login attempts during a specified duration.
+# dat type: string
 
 searchDuration="24h"  # [--last &lt;num&gt;[m|h|d] ]
 
