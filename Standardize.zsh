@@ -47,6 +47,18 @@ echo "Getting Current User's Home Folder Location..."
 plist="${userHome}/Library/Preferences/com.apple.dock.plist"
 echo "Getting Path to Plist..."
 
+# Convenience function to run a command as the current user
+# usage: runAsUser command arguments...
+runAsUser() {  
+	if [[ "${currentUser}" != "loginwindow" ]]; then
+		launchctl asuser "$uid" sudo -u "${currentUser}" "$@"
+	else
+		echo "no user logged in"
+		exit 1
+	fi
+}
+echo "Performing Check to Run a Command as Current User..."
+
 ############################
 #### FINDER PREFERENCES ####
 ############################
@@ -135,18 +147,6 @@ echo "Disabling Application Animations on Dock..."
 
 # Path to plist
 plist="${userHome}/Library/Preferences/com.apple.dock.plist"
-
-# Convenience function to run a command as the current user
-# usage: runAsUser command arguments...
-runAsUser() {  
-	if [[ "${currentUser}" != "loginwindow" ]]; then
-		launchctl asuser "$uid" sudo -u "${currentUser}" "$@"
-	else
-		echo "no user logged in"
-		exit 1
-	fi
-}
-echo "Performing Check to Run a Command as Current User..."
 
 # Check if dockutil is installed
 if [[ -x "/usr/local/bin/dockutil" ]]; then
