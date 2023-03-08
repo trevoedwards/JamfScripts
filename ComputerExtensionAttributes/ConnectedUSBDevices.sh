@@ -3,6 +3,7 @@
 # This will list all connected USB devices in a visual manner to see how devices are connected to each other.
 # If you just want a plain list of devices you may want to change the prefix settings.
 # There are some USB hubs you may not want to list by default. Eg. Everything connected to the security chip. You can exclude them in the Do_Not_List_If_Controller_Is array.
+# data type: string
 
 Do_Not_List_If_Controller_Is=("T2Bus" "VHCBus")
 start_prefix=""
