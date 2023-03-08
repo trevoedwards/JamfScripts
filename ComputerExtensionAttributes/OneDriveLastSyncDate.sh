@@ -1,6 +1,5 @@
 #!/bin/sh
-# set -x
-# Data Type: Date (YYYY-MM-DD hh:mm:ss)
+#set -x
 
 TOOL_NAME="Microsoft Outlook Local Folders Size Extension Attribute"
 TOOL_VERSION="1.0"
@@ -14,6 +13,7 @@ TOOL_VERSION="1.0"
 ## loss) arising out of the use of or inability to use the sample scripts or documentation, even if Microsoft has been advised of the possibility
 ## of such damages.
 ## Feedback: pbowden@microsoft.com
+## Data Type: Date (YYYY-MM-DD hh:mm:ss)
 
 # Function to determine the logged-in state of the Mac
 function DetermineLoginState() {
