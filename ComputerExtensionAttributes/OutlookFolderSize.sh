@@ -1,5 +1,7 @@
 #!/bin/sh
-#set -x
+
+# set -x
+# Data Type: Integer
 
 TOOL_NAME="Microsoft Outlook Local Folders Size Extension Attribute"
 TOOL_VERSION="1.0"
