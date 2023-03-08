@@ -2,6 +2,8 @@
 
 # Recursively through all connected displays and returns their serial, resolution, name and date of build.
 # If needed you can exclude certain displays by adding their name in the array below (e.g "Color LCD" for MacBook internal screen)
+#
+# data type: string
 
 ignore_displays=("")
 
