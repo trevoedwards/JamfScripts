@@ -4,7 +4,6 @@
 # change for the last logged on user
 # Changed script to use dscl . -readpl (suggestion from Pico -- MadAdmins)
 # Created 4.11.2022 @robjschroeder
-
 # Data Type: Date (YYYY-MM-DD hh:mm:ss)
 
 # Grab the last logged in User
