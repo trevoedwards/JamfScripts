@@ -5,7 +5,7 @@
                                   ___) | || (_| | | | | (_| | (_| | | | (_| | |/ /  __/
                                  |____/ \__\__,_|_| |_|\__,_|\__,_|_|  \__,_|_/___\___| 
 
-                    A quick script to standardize some user settings of macOS for a corporate environment.
+                    A quick script to standardize macOS user settings for a corporate environment.
                                                        
                                             
 ```
