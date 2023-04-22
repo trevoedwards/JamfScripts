@@ -1,9 +1,9 @@
 #!/bin/zsh
 
-#	This will uninstall Jamf Connect and reset the login window
+# This will uninstall Jamf Connect and reset the login window
 # Created by Kyle Ericson
 # https://github.com/kylejericson
-#	Version 5.0
+# Version 5.0
 
 echo "Created by Kyle Ericson"
 echo "email kyle@ericsontech.com"
