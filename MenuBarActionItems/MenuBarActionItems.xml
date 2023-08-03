@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Actions</key>
+    <array>
+      <dict>
+        <key>Name</key>
+        <string>IP address</string>
+        <key>Action</key>
+        <array>
+          <dict>
+            <key>Command</key>
+            <string>path</string>
+            <key>CommandOptions</key>
+            <string>open /System/Library/PreferencePanes/Network.prefPane</string>
+          </dict>
+        </array>
+      </dict>
+      <dict>
+        <key>Name</key>
+        <string>en0</string>
+        <key>ToolTip</key>
+        <string>Primary IP Address</string>
+        <key>Title</key>
+        <dict>
+          <key>Command</key>
+          <string>path</string>
+          <key>CommandOptions</key>
+          <string>/usr/sbin/ipconfig getifaddr en0</string>
+        </dict>
+      </dict>
+      <dict>
+        <key>Name</key>
+        <string>separator</string>
+      </dict>
+      <dict>
+        <key>Name</key>
+        <string>Computer Name</string>
+        <key>Action</key>
+        <array>
+          <dict>
+            <key>Command</key>
+            <string>app</string>
+            <key>CommandOptions</key>
+            <string>/System/Applications/Utilities/System Information.app</string>
+          </dict>
+        </array>
+      </dict>
+      <dict>
+        <key>Name</key>
+        <string>Hostname</string>
+        <key>ToolTip</key>
+        <string>Hostname</string>
+        <key>Title</key>
+        <dict>
+          <key>Command</key>
+          <string>path</string>
+          <key>CommandOptions</key>
+          <string>/bin/hostname</string>
+        </dict>
+      </dict>
+      <dict>
+        <key>Name</key>
+        <string>separator</string>
+      </dict>
+      <dict>
+        <key>Name</key>
+        <string>Operating System</string>
+        <key>Action</key>
+        <array>
+          <dict>
+            <key>Command</key>
+            <string>path</string>
+            <key>CommandOptions</key>
+            <string>open /System/Library/PreferencePanes/SoftwareUpdate.prefPane</string>
+          </dict>
+        </array>
+      </dict>
+      <dict>
+        <key>Name</key>
+        <string>Operating System Version</string>
+        <key>ToolTip</key>
+        <string>macOS version</string>
+        <key>Title</key>
+        <dict>
+          <key>Command</key>
+          <string>path</string>
+          <key>CommandOptions</key>
+          <string>sw_vers -productVersion</string>
+        </dict>
+      </dict>
+      <dict>
+        <key>Name</key>
+        <string>separator</string>
+      </dict>
+          <dict>
+        <key>Name</key>
+        <string>Reset Your OKTA Password</string>
+        <key>Action</key>
+        <array>
+          <dict>
+            <key>Command</key>
+            <string>url</string>
+            <key>CommandOptions</key>
+            <string>https://yourorg.okta.com/signin/forgot-password</string>
+          </dict>
+        </array>
+      </dict>
+      <dict>
+        <key>Name</key>
+        <string>View Password Syncing Help Document</string>
+        <key>Action</key>
+        <array>
+          <dict>
+            <key>Command</key>
+            <string>path</string>
+            <key>CommandOptions</key>
+            <string>open /usr/local/path/to/documentation/PasswordSyncHelp.pdf</string>
+          </dict>
+        </array>
+      </dict>
+    </array>
+  </dict>
+</plist>
