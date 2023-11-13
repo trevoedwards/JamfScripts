@@ -3,7 +3,7 @@
 dialogApp="/usr/local/bin/dialog"
 
 title="Computer Name Prompter"
-message="Please set the name of this device. \n\n Department Code + First 8 of Serial Number + L or W (Laptop or Workstation)."
+message="Please set the name of this device. \n\n Department Code + Serial Number + L/W (Laptop or Workstation)."
 
 
 hwType=$(/usr/sbin/system_profiler SPHardwareDataType | grep "Model Identifier" | grep "Book")  
