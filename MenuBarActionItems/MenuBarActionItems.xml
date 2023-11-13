@@ -96,7 +96,7 @@
       </dict>
           <dict>
         <key>Name</key>
-        <string>Reset Your OKTA Password</string>
+        <string>Reset OKTA Password</string>
         <key>Action</key>
         <array>
           <dict>
@@ -109,14 +109,14 @@
       </dict>
       <dict>
         <key>Name</key>
-        <string>View Password Syncing Help Document</string>
+        <string>View Password Help Document</string>
         <key>Action</key>
         <array>
           <dict>
             <key>Command</key>
             <string>path</string>
             <key>CommandOptions</key>
-            <string>open /usr/local/path/to/documentation/PasswordSyncHelp.pdf</string>
+            <string>open /usr/local/path/to/documentation/PasswordHelp.pdf</string>
           </dict>
         </array>
       </dict>
