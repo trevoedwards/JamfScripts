@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#credit to https://github.com/acodega
+
 dialogApp="/usr/local/bin/dialog"
 
 title="Computer Name Prompter"
@@ -11,7 +13,7 @@ if [ "$hwType" != "" ]; then
   icon="SF=laptopcomputer"
   else
   icon="SF=desktopcomputer"
-fi #credit to https://github.com/acodega
+fi 
 
 dialogCMD="$dialogApp -p --title \"$title\" \
 --icon \"$icon\" \
