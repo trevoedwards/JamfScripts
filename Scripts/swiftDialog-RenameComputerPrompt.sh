@@ -8,7 +8,6 @@ serial_number=$(system_profiler SPHardwareDataType | awk '/Serial/ {print $4}')
 title="Computer Name Prompter"
 message="Please set the name of this device. \n\n Department Code + Serial Number + L/W (Laptop or Workstation). \n\n Your computer's serial number is: $serial_number"
 
-
 hwType=$(/usr/sbin/system_profiler SPHardwareDataType | grep "Model Identifier" | grep "Book")  
 if [ "$hwType" != "" ]; then
   icon="SF=laptopcomputer"
