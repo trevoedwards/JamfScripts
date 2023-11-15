@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Credit to https://github.com/acodega
+
 dialogApp="/usr/local/bin/dialog"
 
 # Get serial number using system_profiler
