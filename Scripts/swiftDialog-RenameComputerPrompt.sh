@@ -1,11 +1,12 @@
 #!/bin/bash
 
-#credit to https://github.com/acodega
-
 dialogApp="/usr/local/bin/dialog"
 
+# Get serial number using system_profiler
+serial_number=$(system_profiler SPHardwareDataType | awk '/Serial/ {print $4}')
+
 title="Computer Name Prompter"
-message="Please set the name of this device. \n\n Department Code + Serial Number + L/W (Laptop or Workstation)."
+message="Please set the name of this device. \n\n Department Code + Serial Number + L/W (Laptop or Workstation). \n\n Your computer's serial number is: $serial_number"
 
 
 hwType=$(/usr/sbin/system_profiler SPHardwareDataType | grep "Model Identifier" | grep "Book")  
@@ -13,12 +14,12 @@ if [ "$hwType" != "" ]; then
   icon="SF=laptopcomputer"
   else
   icon="SF=desktopcomputer"
-fi 
+fi #credit to https://github.com/acodega
 
 dialogCMD="$dialogApp -p --title \"$title\" \
 --icon \"$icon\" \
 --message \"$message\" \
---messagefont "name=Arial,size=17" \
+--messagefont "name=Arial,size=15" \
 --small \
 --button1text "Set" \
 --button2 \
