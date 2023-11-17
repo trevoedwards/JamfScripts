@@ -2,11 +2,6 @@
 
 # Credit to https://github.com/acodega
 
-dialogApp="/usr/local/bin/dialog"
-
-title="Computer Name Prompter"
-message="Please set the name of this device. \n\n Department Code + Serial Number + L/W (Laptop or Workstation). \n\n Your computer's serial number is: $serial_number"
-
 # Get serial number using system_profiler
 serial_number=$(system_profiler SPHardwareDataType | awk '/Serial/ {print $4}')
 
@@ -14,9 +9,14 @@ serial_number=$(system_profiler SPHardwareDataType | awk '/Serial/ {print $4}')
 hwType=$(/usr/sbin/system_profiler SPHardwareDataType | grep "Model Identifier" | grep "Book")  
 if [ "$hwType" != "" ]; then
   icon="SF=laptopcomputer"
-  else
+else
   icon="SF=desktopcomputer"
 fi 
+
+dialogApp="/usr/local/bin/dialog"
+
+title="Computer Name Prompter"
+message="Please set the name of this device. \n\n Department Code + Serial Number + L/W (Laptop or Workstation). \n\n Your computer's serial number is: $serial_number"
 
 dialogCMD="$dialogApp -p --title \"$title\" \
 --icon \"$icon\" \
