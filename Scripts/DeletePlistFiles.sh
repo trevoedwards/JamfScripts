@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Define the directory where plist files are located
+# Using parameter $4 of the Jamf Script Parameters to define the folder later in a Policy:
 directory="$4"
 
 # Check if the directory exists
