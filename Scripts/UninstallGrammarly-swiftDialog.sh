@@ -126,8 +126,6 @@ else
     done
 fi
 
-log "Forgot pkg receipt: $receipt"
-
 # Completion dialog
 "$SWIFT_DIALOG" --title "Uninstaller" \
 --message "Grammarly Desktop has been successfully removed from your Mac." \
