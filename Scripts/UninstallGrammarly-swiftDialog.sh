@@ -107,6 +107,27 @@ rm -f /Library/LaunchDaemons/com.grammarly.* 2>/dev/null && log "Removed system 
 rm -f "/Library/Application Support/Microsoft/Office365/User Content.localized/Startup/Word/Grammarly.dotm" && log "Removed system Grammarly Word plug-in."
 rm -rf "/Library/Application Support/Grammarly" && log "Removed /Library/Application Support/Grammarly"
 
+# Remove Grammarly package recepts
+log "Starting package receipt cleanup for Grammarly..."
+
+# Get matching package IDs
+receipts=$(pkgutil --pkgs | grep -i "grammarly")
+
+if [ -z "$receipts" ]; then
+    log "No Grammarly-related package receipts found."
+else
+    for receipt in $receipts; do
+        sudo pkgutil --forget "$receipt"
+        if [ $? -eq 0 ]; then
+            log "Forgot package receipt: $receipt"
+        else
+            log "Failed to forget: $receipt"
+        fi
+    done
+fi
+
+log "Forgot pkg receipt: $receipt"
+
 # Completion dialog
 "$SWIFT_DIALOG" --title "Uninstaller" \
 --message "Grammarly Desktop has been successfully removed from your Mac." \
