@@ -1,14 +1,15 @@
 #!/bin/sh
 
 #######################################################################################
-# A script to collect the version of Adobe Remote Update Manager currently installed. #
-# If Adobe Remote Update Manager is not installed, "Not Installed" will return back   #
+# Extension Attribute: Adobe Remote Update Manager Version                            #
+# Reports the installed version of RUM, or "Not Installed" if not present            #
 #######################################################################################
 
+RUM_PATH="/usr/local/bin/adobe/RemoteUpdateManager"
 RESULT="Not Installed"
 
-if [ -f "/usr/local/bin/RemoteUpdateManager" ] ; then
-    RESULT=$( /usr/local/bin/RemoteUpdateManager --help 2>&1 | /usr/bin/awk ' NR==1{ print $5 } ' )
+if [ -x "$RUM_PATH" ]; then
+    RESULT=$("$RUM_PATH" --help 2>&1 | awk 'NR==1 { print $NF }')
 fi
 
 echo "<result>$RESULT</result>"
