@@ -1,65 +1,63 @@
-#!/bin/sh
-#set -x
+#!/bin/bash
 
-TOOL_NAME="Microsoft Outlook Local Folders Size Extension Attribute"
-TOOL_VERSION="1.0"
+# Data Type: Date (YYYY-MM-DD hh:mm:ss)
+# Purpose: Reports when OneDrive last recorded sync activity for the logged-in user's
+#          work or school (Business) account, in the Mac's local time.
+#
+# OneDrive keeps per-account sync state in settings/Business1, Business2, ... folders and
+# rewrites its sync database files there as it syncs. This EA reports the newest
+# modification time of those files across both editions of the app:
+#   Standalone:      ~/Library/Application Support/OneDrive/settings
+#   Mac App Store:   ~/Library/Containers/com.microsoft.OneDrive-mac/Data/Library/Application Support/OneDrive/settings
+# Personal accounts (settings/Personal) are not checked.
+#
+# Possible results:
+#   YYYY-MM-DD hh:mm:ss   Last sync activity
+#   No User Logged In     Nobody is logged in at the console
+#   Not Installed         OneDrive.app is not in /Applications or ~/Applications
+#   Not Configured        No Business account sync data found for the logged-in user
+# The status strings are not dates, so they won't match date-based smart group criteria.
 
-## Copyright (c) 2020 Microsoft Corp. All rights reserved.
-## Scripts are not supported under any Microsoft standard support program or service. The scripts are provided AS IS without warranty of any kind.
-## Microsoft disclaims all implied warranties including, without limitation, any implied warranties of merchantability or of fitness for a 
-## particular purpose. The entire risk arising out of the use or performance of the scripts and documentation remains with you. In no event shall
-## Microsoft, its authors, or anyone else involved in the creation, production, or delivery of the scripts be liable for any damages whatsoever 
-## (including, without limitation, damages for loss of business profits, business interruption, loss of business information, or other pecuniary 
-## loss) arising out of the use of or inability to use the sample scripts or documentation, even if Microsoft has been advised of the possibility
-## of such damages.
-## Feedback: pbowden@microsoft.com
-## Data Type: Date (YYYY-MM-DD hh:mm:ss)
+consoleUser=$(/bin/echo "show State:/Users/ConsoleUser" | /usr/sbin/scutil | /usr/bin/awk '$1 == "Name" && $2 == ":" { print $3; exit }')
 
-# Function to determine the logged-in state of the Mac
-function DetermineLoginState() {
-	USERNAME=$(/usr/bin/last -1 -t ttys000 | /usr/bin/awk '{print $1}')
-	CMD_PREFIX="sudo -u ${USERNAME} "
-}
+case "$consoleUser" in
+	"" | loginwindow | _mbsetupuser | root)
+		echo "<result>No User Logged In</result>"
+		exit 0
+		;;
+esac
 
-# Function to determine which Outlook profile is in use
-function DetermineOutlookProfile() {
-	PROFILE_NAME=$( defaults read "/Users/${USERNAME}/Library/Group Containers/UBF8T346G9.Office/OutlookProfile.plist" Default_Profile_Name )
-}
+# Home folder from the directory service (dscl wraps values that contain spaces onto a second line)
+userHome=$(/usr/bin/dscl . -read "/Users/${consoleUser}" NFSHomeDirectory 2>/dev/null | /usr/bin/awk '
+	NR == 1 { sub(/^NFSHomeDirectory: */, ""); if ($0 != "") { print; exit } next }
+	{ sub(/^ +/, ""); print; exit }')
+[ -d "$userHome" ] || userHome="/Users/${consoleUser}"
 
-# Function to determine the path to the Outlook database
-function DetermineOutlookDB() {
-	OUTLOOK_DB="/Users/${USERNAME}/Library/Group Containers/UBF8T346G9.Office/Outlook/Outlook 15 Profiles/${PROFILE_NAME}/Data/Outlook.sqlite"
-	OUTLOOK_FOLDER="/Users/${USERNAME}/Library/Group Containers/UBF8T346G9.Office/Outlook/Outlook 15 Profiles/${PROFILE_NAME}/Data/"
-}
+if [ ! -d "/Applications/OneDrive.app" ] && [ ! -d "${userHome}/Applications/OneDrive.app" ]; then
+	echo "<result>Not Installed</result>"
+	exit 0
+fi
 
-# Function to get the list of local messages from the Outlook database, and get the file size on disk
-function GetLocalMessages() {
-	OMCSIZE=0
-	local MSGRESULT=$(sqlite3 "${OUTLOOK_DB}" "SELECT PathToDataFile from Mail WHERE Record_AccountUID='0'")
-	declare -a MSGARRAY
-	SAVEIFS=$IFS
-	IFS=$'\n'
-	MSGARRAY=(${MSGRESULT})
-	IFS=$SAVEIFS
-	for msg in "${MSGARRAY[@]}"
-	do
-		MSGSIZE=$(/usr/bin/stat -qf%z "${OUTLOOK_FOLDER}${msg}")
-		OMCSIZE=$(($OMCSIZE + $MSGSIZE))
+newest=0
+for settingsDir in \
+	"${userHome}/Library/Application Support/OneDrive/settings" \
+	"${userHome}/Library/Containers/com.microsoft.OneDrive-mac/Data/Library/Application Support/OneDrive/settings"; do
+	for syncFile in "$settingsDir"/Business*/*.dat "$settingsDir"/Business*/SyncEngineDatabase.db "$settingsDir"/Business*/SyncEngineDatabase.db-wal; do
+		[ -f "$syncFile" ] || continue
+		mtime=$(/usr/bin/stat -f %m "$syncFile" 2>/dev/null)
+		case "$mtime" in
+			"" | *[!0-9]*) continue ;;
+		esac
+		if [ "$mtime" -gt "$newest" ]; then
+			newest=$mtime
+		fi
 	done
-}
+done
 
-# Function to convert message size to megabytes
-function ConvertSizeToMB() {
-	FINALSIZE=$(/usr/bin/awk "BEGIN {printf \"%.2f\n\", ${OMCSIZE}/1000/1000}")
-}
-
-## MAIN
-DetermineLoginState
-DetermineOutlookProfile
-DetermineOutlookDB
-GetLocalMessages
-ConvertSizeToMB
-
-/bin/echo "<result>${FINALSIZE} MB</result>"
+if [ "$newest" -gt 0 ]; then
+	echo "<result>$(/bin/date -r "$newest" '+%Y-%m-%d %H:%M:%S')</result>"
+else
+	echo "<result>Not Configured</result>"
+fi
 
 exit 0
