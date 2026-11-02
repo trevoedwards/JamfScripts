@@ -183,8 +183,9 @@ for pkg in $(/usr/sbin/pkgutil --pkgs 2>/dev/null | /usr/bin/grep -i "postman" |
 done
 
 log "Removing LaunchAgents/Daemons (best-effort)..."
-rm_path "/Library/LaunchAgents/com.postman*.plist"
-rm_path "/Library/LaunchDaemons/com.postman*.plist"
+for plist in /Library/LaunchAgents/com.postman*.plist /Library/LaunchDaemons/com.postman*.plist; do
+  rm_path "$plist"
+done
 
 log "Final verification..."
 if [[ -d "/Applications/Postman.app" ]]; then
