@@ -38,7 +38,7 @@ echo "======== Script Start: $(date) ========" | tee -a "$LOG_FILE"
 
 # Clean up old logs
 echo "🧹 Cleaning logs older than $LOG_RETENTION_DAYS days..." | tee -a "$LOG_FILE"
-find "$LOG_DIR" -type f -name "*.log" -mtime +$LOG_RETENTION_DAYS -exec rm {} \; 2>> "$LOG_FILE"
+find "$LOG_DIR" -maxdepth 1 -type f -name "AdobeUpdate_*.log" -mtime +$LOG_RETENTION_DAYS -exec rm {} \; 2>> "$LOG_FILE"
 
 # ===================== Pre-Update App Versions =====================
 echo -e "\n== 📋 Installed Adobe Apps (Pre-Update) ==" | tee -a "$LOG_FILE"
