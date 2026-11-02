@@ -5,7 +5,7 @@ appToUninstall="$1"
 ########Functions###########
 initializeUninstaller(){
     # Force Quit the app
-    pgrep $1 | xargs kill -15
+    pgrep "$1" | xargs kill -15
     
     # Remove the App
     /bin/rm -Rf "/Applications/$1.app"
